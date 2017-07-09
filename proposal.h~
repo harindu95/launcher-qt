@@ -1,0 +1,22 @@
+//
+// Created by harindu on 03/07/17.
+//
+
+#ifndef LAUNCHER_QT_PROPOSAL_H
+#define LAUNCHER_QT_PROPOSAL_H
+
+#include <string>
+#include <QPixmap>
+
+
+struct Proposal{
+    std::string name;
+    std::string comment;
+    std::string icon;
+    std::string type;
+    std::string exec;
+    int priority = 0;
+
+};
+
+#endif //LAUNCHER_QT_PROPOSAL_H

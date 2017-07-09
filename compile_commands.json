@@ -1,0 +1,57 @@
+[
+{
+  "directory": "/home/harindu/CLionProjects/launcher-qt",
+  "command": "/usr/bin/c++   -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/harindu/CLionProjects/launcher-qt/thirdparty/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork   -pg -pthread   -fPIC -std=gnu++14 -o CMakeFiles/launcher-qt.dir/main.cpp.o -c /home/harindu/CLionProjects/launcher-qt/main.cpp",
+  "file": "/home/harindu/CLionProjects/launcher-qt/main.cpp"
+},
+{
+  "directory": "/home/harindu/CLionProjects/launcher-qt",
+  "command": "/usr/bin/c++   -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/harindu/CLionProjects/launcher-qt/thirdparty/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork   -pg -pthread   -fPIC -std=gnu++14 -o CMakeFiles/launcher-qt.dir/mainwindow.cpp.o -c /home/harindu/CLionProjects/launcher-qt/mainwindow.cpp",
+  "file": "/home/harindu/CLionProjects/launcher-qt/mainwindow.cpp"
+},
+{
+  "directory": "/home/harindu/CLionProjects/launcher-qt",
+  "command": "/usr/bin/c++   -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/harindu/CLionProjects/launcher-qt/thirdparty/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork   -pg -pthread   -fPIC -std=gnu++14 -o CMakeFiles/launcher-qt.dir/mylineedit.cpp.o -c /home/harindu/CLionProjects/launcher-qt/mylineedit.cpp",
+  "file": "/home/harindu/CLionProjects/launcher-qt/mylineedit.cpp"
+},
+{
+  "directory": "/home/harindu/CLionProjects/launcher-qt",
+  "command": "/usr/bin/c++   -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/harindu/CLionProjects/launcher-qt/thirdparty/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork   -pg -pthread   -fPIC -std=gnu++14 -o CMakeFiles/launcher-qt.dir/pluginworker.cpp.o -c /home/harindu/CLionProjects/launcher-qt/pluginworker.cpp",
+  "file": "/home/harindu/CLionProjects/launcher-qt/pluginworker.cpp"
+},
+{
+  "directory": "/home/harindu/CLionProjects/launcher-qt",
+  "command": "/usr/bin/c++   -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/harindu/CLionProjects/launcher-qt/thirdparty/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork   -pg -pthread   -fPIC -std=gnu++14 -o CMakeFiles/launcher-qt.dir/resultwidget.cpp.o -c /home/harindu/CLionProjects/launcher-qt/resultwidget.cpp",
+  "file": "/home/harindu/CLionProjects/launcher-qt/resultwidget.cpp"
+},
+{
+  "directory": "/home/harindu/CLionProjects/launcher-qt",
+  "command": "/usr/bin/c++   -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/harindu/CLionProjects/launcher-qt/thirdparty/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork   -pg -pthread   -fPIC -std=gnu++14 -o CMakeFiles/launcher-qt.dir/singleapplication.cpp.o -c /home/harindu/CLionProjects/launcher-qt/singleapplication.cpp",
+  "file": "/home/harindu/CLionProjects/launcher-qt/singleapplication.cpp"
+},
+{
+  "directory": "/home/harindu/CLionProjects/launcher-qt",
+  "command": "/usr/bin/c++   -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/harindu/CLionProjects/launcher-qt/thirdparty/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork   -pg -pthread   -fPIC -std=gnu++14 -o CMakeFiles/launcher-qt.dir/Plugins/applications.cpp.o -c /home/harindu/CLionProjects/launcher-qt/Plugins/applications.cpp",
+  "file": "/home/harindu/CLionProjects/launcher-qt/Plugins/applications.cpp"
+},
+{
+  "directory": "/home/harindu/CLionProjects/launcher-qt",
+  "command": "/usr/bin/c++   -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/harindu/CLionProjects/launcher-qt/thirdparty/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork   -pg -pthread   -fPIC -std=gnu++14 -o CMakeFiles/launcher-qt.dir/Plugins/plugin.cpp.o -c /home/harindu/CLionProjects/launcher-qt/Plugins/plugin.cpp",
+  "file": "/home/harindu/CLionProjects/launcher-qt/Plugins/plugin.cpp"
+},
+{
+  "directory": "/home/harindu/CLionProjects/launcher-qt",
+  "command": "/usr/bin/c++   -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/harindu/CLionProjects/launcher-qt/thirdparty/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork   -pg -pthread   -fPIC -std=gnu++14 -o CMakeFiles/launcher-qt.dir/Plugins/qutebrowser.cpp.o -c /home/harindu/CLionProjects/launcher-qt/Plugins/qutebrowser.cpp",
+  "file": "/home/harindu/CLionProjects/launcher-qt/Plugins/qutebrowser.cpp"
+},
+{
+  "directory": "/home/harindu/CLionProjects/launcher-qt",
+  "command": "/usr/bin/c++   -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/harindu/CLionProjects/launcher-qt/thirdparty/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork   -pg -pthread   -fPIC -std=gnu++14 -o CMakeFiles/launcher-qt.dir/thirdparty/easylogging++.cc.o -c /home/harindu/CLionProjects/launcher-qt/thirdparty/easylogging++.cc",
+  "file": "/home/harindu/CLionProjects/launcher-qt/thirdparty/easylogging++.cc"
+},
+{
+  "directory": "/home/harindu/CLionProjects/launcher-qt",
+  "command": "/usr/bin/c++   -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/harindu/CLionProjects/launcher-qt/thirdparty/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork   -pg -pthread   -fPIC -std=gnu++14 -o CMakeFiles/launcher-qt.dir/launcher-qt_automoc.cpp.o -c /home/harindu/CLionProjects/launcher-qt/launcher-qt_automoc.cpp",
+  "file": "/home/harindu/CLionProjects/launcher-qt/launcher-qt_automoc.cpp"
+}
+]
