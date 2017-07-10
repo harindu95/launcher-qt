@@ -4,7 +4,8 @@
 #include <QPixmapCache>
 #include <iostream>
 
-static QPixmapCache icon_cache;
+// static QPixmapCache icon_cache;
+static std::map<std::string,QPixmap> icon_cache;
 ResultWidget::ResultWidget(QWidget* parent, std::vector<std::shared_ptr<Plugin>> plugins, QString text)
 : QWidget(parent)
 {
@@ -58,8 +59,7 @@ void ResultWidget::changeItem(Proposal result, bool selected)
     auto icon = result.icon.c_str();
     auto text = result.name;
     QPixmap image;
-
-    if(!icon_cache.find(icon, &image))
+    if(icon_cache.find(icon) ==icon_cache.end())
     {
 
         if(QString(icon).startsWith('/'))
@@ -71,7 +71,9 @@ void ResultWidget::changeItem(Proposal result, bool selected)
             //                .scaled(QSize(48, 48), Qt::IgnoreAspectRatio,
             //                Qt::SmoothTransformation);
         }
-        icon_cache.insert(icon, image);
+        icon_cache[icon]= image;
+    }else{
+      image = icon_cache[icon];
     }
 
     if(!image.isNull())

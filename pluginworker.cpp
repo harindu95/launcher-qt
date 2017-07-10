@@ -8,21 +8,57 @@
 extern std::vector<std::shared_ptr<Plugin>> plugins;
 PluginWorker::PluginWorker(QObject* parent) : QObject(parent) {}
 
+QString PluginWorker::join(QString text1,QString text2){
 
-std::vector<Proposal> query(QString txt,
+  QString output;
+  for(auto c: text2){
+    output += c;
+    output += text1;
+  }
+  return output;
+}
+QRegExp PluginWorker::createRegex( QString searchString, bool strict=false ){
+  searchString = searchString.toLower();
+  auto terms = searchString.split(" ");
+  QString pattern = ".*";
+  for(auto term : terms)
+    {
+      pattern += PluginWorker::join("[^\\s]*", term);
+      pattern += ".*\\s?";
+    }
+    pattern += ".*";
+    return QRegExp{ pattern, Qt::CaseInsensitive };
+}
+template<typename InputIterator,typename T>
+void copy(InputIterator it_begin, InputIterator it_end,std::vector<T>& output_vector){
+
+  for(auto i=it_begin;i!=it_end;i++){
+    output_vector.push_back(*i);
+  }
+}
+
+void PluginWorker::sort( std::vector<Proposal> &proposals, QString searchString ){
+
+  auto regex = createRegex(searchString);
+  auto bound = std::partition(proposals.begin(), proposals.end(), [&regex](Proposal item) {
+      return regex.exactMatch(QString::fromStdString(item.name));
+    });
+
+  auto priority_bound = std::partition(proposals.begin(), bound, [&regex](Proposal item) {
+      return item.priority==0;
+    });
+ 
+  std::sort(priority_bound, bound,
+            [](Proposal a, Proposal b) { return (a.name.length() < b.name.length()); });
+  std::sort(bound, proposals.end(), [](Proposal a, Proposal b) { return a.priority < b.priority; });
+}
+
+std::vector<Proposal> PluginWorker::query(QString txt,
                             const std::vector<Proposal>& all_results,
                             const std::vector<Proposal>& previous_results,
                             QString previous_search = "")
 {
 
-    txt = txt.toLower();
-    auto terms = txt.split(" ");
-    std::string pattern = ".*";
-    for(auto term : terms)
-    {
-        pattern += join("[^\\s]*", term);
-        pattern += ".*\\s?";
-    }
     const std::vector<Proposal>* data;
     if(txt.indexOf(previous_search) != -1 && !previous_search.isEmpty())
     {
@@ -33,38 +69,23 @@ std::vector<Proposal> query(QString txt,
         data = &all_results;
     }
 
-    pattern += ".*";
-    QRegExp regex{ QString::fromStdString(pattern), Qt::CaseInsensitive };
 
     std::vector<Proposal> results;
 
+    auto regex = createRegex(txt);
 
     auto it = std::find_if(data->begin(), data->end(), [&regex](Proposal item) {
         return regex.exactMatch(QString::fromStdString(item.comment + item.name + item.icon + item.exec));
     });
 
-    //    std::vector<Proposal> results = *data | ranges::view::filter([&regex](Proposal item) {
-    //        return regex.exactMatch(QString::fromStdString(item.comment + item.name + item.icon +
-    //        item.exec));
-    //    });
-    //    auto bound = ranges::partition(results, [&regex](Proposal item) {
-    //        return regex.exactMatch(QString::fromStdString(item.name));
-    //    });
-
-
-    while(it != data->end())
-    {
-        results.push_back(*it);
-        it++;
-    }
-
-    auto bound = std::partition(results.begin(), results.end(), [&regex](Proposal item) {
-        return regex.exactMatch(QString::fromStdString(item.name));
-    });
-
-    std::sort(results.begin(), bound,
-              [](Proposal a, Proposal b) { return (a.priority < b.priority); });
-    std::sort(bound, results.end(), [](Proposal a, Proposal b) { return a.priority < b.priority; });
+    copy(it,data->end(), results);
+    // std::cop
+    // while(it != data->end())
+    // {
+    //     results.push_back(*it);
+    //     it++;
+   // }
+    sort(results,txt);
 
 
     LOG(DEBUG) << "Querying";

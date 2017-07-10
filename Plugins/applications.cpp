@@ -6,6 +6,7 @@
 
 typedef std::string String;
 
+
 std::string filter(QString h){
 
 

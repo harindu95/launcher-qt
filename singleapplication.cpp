@@ -4,7 +4,7 @@
 #include <QMessageBox>
 #include <QTimer>
 
-SingleApplication::SingleApplication(int& argc, char* argv[])
+QSingleApplication::QSingleApplication(int& argc, char* argv[])
 : QApplication(argc, argv), _exit(false)
 {
     for(int i = 0; i < argc; i++)
@@ -15,7 +15,7 @@ SingleApplication::SingleApplication(int& argc, char* argv[])
     m_socket = new QLocalSocket();
 }
 
-void SingleApplication::singleStart()
+void QSingleApplication::singleStart()
 {
     _exit = false;
     QObject::connect(m_socket, SIGNAL(connected()), this, SLOT(connectToExistingApp()));
@@ -25,7 +25,7 @@ void SingleApplication::singleStart()
     m_socket->connectToServer(applicationName(), QIODevice::WriteOnly);
 }
 
-void SingleApplication::connectToExistingApp()
+void QSingleApplication::connectToExistingApp()
 {
 
     if(args.size() > 1)
@@ -46,7 +46,7 @@ void SingleApplication::connectToExistingApp()
 }
 
 
-void SingleApplication::startApplication(QLocalSocket::LocalSocketError)
+void QSingleApplication::startApplication(QLocalSocket::LocalSocketError)
 {
     if(m_server->listen(applicationName()))
     {
@@ -65,14 +65,14 @@ void SingleApplication::startApplication(QLocalSocket::LocalSocketError)
     }
 }
 
-void SingleApplication::getNewConnection()
+void QSingleApplication::getNewConnection()
 {
     this->new_socket = m_server->nextPendingConnection();
     LOG(DEBUG) << "Get pending connection";
     new_socket_initialized = true;
     connect(new_socket, SIGNAL(readyRead()), this, SLOT(readSocket()));
 }
-void SingleApplication::readSocket()
+void QSingleApplication::readSocket()
 {
     LOG(DEBUG) << "CHECK SOCKET";
     auto f = new_socket->readAll();
@@ -80,7 +80,7 @@ void SingleApplication::readSocket()
     emit messageReceived(QString(f).toStdString());
 }
 
-SingleApplication::~SingleApplication()
+QSingleApplication::~QSingleApplication()
 {
     m_server->close();
     m_socket->disconnectFromServer();

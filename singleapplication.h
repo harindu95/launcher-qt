@@ -6,15 +6,15 @@
 #include <QMainWindow>
 #include <QTimer>
 
-class SingleApplication : public QApplication
+class QSingleApplication : public QApplication
 {
     Q_OBJECT
 public:
     void singleStart();
 
-    SingleApplication(int& argc, char* argv[]);
+    QSingleApplication(int& argc, char* argv[]);
 
-    ~SingleApplication();
+    ~QSingleApplication();
 
     bool _exit;
 
