@@ -5,3 +5,5 @@ TAGS
 /GPATH
 /GTAGS
 /GRTAGS
+/.agignore
+/pluginworker.cpp.~master~

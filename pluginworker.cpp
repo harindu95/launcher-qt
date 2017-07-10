@@ -59,16 +59,10 @@ std::vector<Proposal> PluginWorker::query(QString txt,
                             QString previous_search = "")
 {
 
-    const std::vector<Proposal>* data;
-    if(txt.indexOf(previous_search) != -1 && !previous_search.isEmpty())
-    {
-        data = &previous_results;
+  const std::vector<Proposal>* data = &all_results;
+  if (txt.indexOf(previous_search) != -1 && !previous_search.isEmpty()) {
+    data = &previous_results;
     }
-    else
-    {
-        data = &all_results;
-    }
-
 
     std::vector<Proposal> results;
 
@@ -78,13 +72,9 @@ std::vector<Proposal> PluginWorker::query(QString txt,
         return regex.exactMatch(QString::fromStdString(item.comment + item.name + item.icon + item.exec));
     });
 
-    copy(it,data->end(), results);
-    // std::cop
-    // while(it != data->end())
-    // {
-    //     results.push_back(*it);
-    //     it++;
-   // }
+    results.resize(std::distance(it,data->end()));
+    std::copy(it,data->end(), results.begin());
+
     sort(results,txt);
 
 
