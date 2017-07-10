@@ -37,7 +37,7 @@ void QSingleApplication::connectToExistingApp()
         connect(m_socket, SIGNAL(bytesWritten(qint64)), this, SLOT(quit()));
     }
     else
-    {
+    { 
 
         QMessageBox::warning(0, "Already running", "Application is already running");
         LOG(DEBUG) << "Application is already running";
@@ -69,13 +69,12 @@ void QSingleApplication::getNewConnection()
 {
     this->new_socket = m_server->nextPendingConnection();
     LOG(DEBUG) << "Get pending connection";
-    new_socket_initialized = true;
-    connect(new_socket, SIGNAL(readyRead()), this, SLOT(readSocket()));
+    connect(new_socket.value(), SIGNAL(readyRead()), this, SLOT(readSocket()));
 }
 void QSingleApplication::readSocket()
 {
     LOG(DEBUG) << "CHECK SOCKET";
-    auto f = new_socket->readAll();
+    auto f = new_socket.value()->readAll();
     LOG(DEBUG) << "READ MESSAGE FROM SOCKET";
     emit messageReceived(QString(f).toStdString());
 }
@@ -84,6 +83,6 @@ QSingleApplication::~QSingleApplication()
 {
     m_server->close();
     m_socket->disconnectFromServer();
-    if(new_socket_initialized)
-        new_socket->close();
+    if(new_socket)
+      new_socket.value()->close();
 }

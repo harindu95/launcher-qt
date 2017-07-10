@@ -5,6 +5,7 @@
 #include <QLocalSocket>
 #include <QMainWindow>
 #include <QTimer>
+#include <experimental/optional>
 
 class QSingleApplication : public QApplication
 {
@@ -21,8 +22,7 @@ public:
 private:
     QLocalSocket* m_socket;
     QLocalServer* m_server;
-    QLocalSocket* new_socket;
-    bool new_socket_initialized = false;
+    std::experimental::optional<QLocalSocket*> new_socket;
     std::vector<std::string> args;
 
 
