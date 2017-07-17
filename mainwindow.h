@@ -15,7 +15,6 @@ namespace Ui
 {
 class MainWindow;
 }
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -82,5 +81,4 @@ signals:
 
     void startWorker(QString txt, std::vector<Proposal> previous_results, QString previous_search);
 };
-
 #endif // MAINWINDOW_H
