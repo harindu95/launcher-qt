@@ -16,7 +16,8 @@ private:
     std::vector<Proposal> applications;
 
 public:
-    std::vector<Proposal> get_proposals() override ;
+    std::vector<Proposal> get_proposals() override;
+    /* virtual std::vector<Proposal> get_proposals() override ; */
     std::vector<Proposal> query(QString txt) override ;
     void execute(Proposal item) override ;
     void setup() override ;

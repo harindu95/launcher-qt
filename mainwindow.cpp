@@ -1,12 +1,13 @@
 #include "mainwindow.h"
 
 #include "Plugins/qutebrowser.h"
-#include "thirdparty/easylogging++.h"
+#include "easylogging++.h"
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QKeyEvent>
 #include <QMessageBox>
 #include <QTimer>
+#include <QProcess>
 
 std::vector<std::shared_ptr<Plugin>> plugins;
 
@@ -17,7 +18,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     plugins.push_back(std::make_shared<Applications>());
     plugins.push_back(std::make_shared<qutebrowser>());
 
-    for(auto plugin : plugins)
+    for(auto& plugin : plugins)
     {
         plugin->setup();
     }
@@ -35,8 +36,8 @@ MainWindow::~MainWindow() {}
 void MainWindow::connect_task()
 {
 
-    connect(this, SIGNAL(startWorker(QString, std::vector<Proposal>, QString)), &task,
-            SLOT(run(QString, std::vector<Proposal>, QString)));
+    connect(this, SIGNAL(startWorker(QString)), &task,
+            SLOT(run(QString)));
     connect(&task, SIGNAL(refresh(const std::vector<Proposal>&)), this,
             SLOT(updateProposals(const std::vector<Proposal>&)));
 }
@@ -45,7 +46,7 @@ void MainWindow::connect_task()
 void MainWindow::focusOut()
 {
     std::cout << "FOCUS OUT" << std::endl;
-    searchString = "";
+    // searchString = "";
     searchBox->setText("");
 
     //    textEditFinished();
@@ -55,7 +56,7 @@ void MainWindow::focusOut()
 void MainWindow::textEditFinished()
 {
     visibleStart = 0;
-    emit startWorker(searchString, results, previous_search);
+    emit startWorker(searchString);
 }
 
 void MainWindow::textChangedSlot(QString txt)
@@ -108,6 +109,14 @@ void MainWindow::setSelected()
     }
 }
 
+void runTerminalCmd(std::string cmd){
+  
+  LOG(INFO) << "Terminal CMD Execute: " << cmd;
+
+  QProcess::startDetached(cmd.c_str());
+}
+
+
 void MainWindow::keyPressEvent(QKeyEvent* event)
 {
     // esacpe
@@ -139,7 +148,12 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
         //                                                     .goDown()
     }
 
+    else if (event->key() == 0x01000004 && event->modifiers() == Qt::ShiftModifier){
+      LOG(INFO) << searchString.toStdString();
+      runTerminalCmd(searchString.toStdString());
+      focusOut();
 
+    }
     //#enter key
     else if(event->key() == 0x01000004)
     {
@@ -246,4 +260,10 @@ void MainWindow::message(std::string msg)
 {
     LOG(DEBUG) << "MESSAGE RECIEVED";
     this->show();
+}
+
+
+void MainWindow::showApp(){
+  LOG(DEBUG) << "Global shortcut activated";
+  this->show(); 
 }

@@ -15,18 +15,15 @@ public:
     explicit PluginWorker(QObject* parent = 0);
     QString join(QString,QString);
     QRegExp createRegex(QString,bool strict);
-    void sort(std::vector<Proposal>& proposals,QString searchString ); 
-    std::vector<Proposal> query(QString txt,
-      const std::vector<Proposal>& all_results,
-      const std::vector<Proposal>& previous_results,
-                                QString previous_search);
+    std::vector<Proposal> sort(std::vector<Proposal> proposals,QString searchString ); 
+    std::vector<Proposal> query(QString txt);
 
 signals:
     void workFinished();
     void refresh(const std::vector<Proposal> &);
 
 public slots:
-    void run(QString text, std::vector<Proposal> previous_results, QString previous_search);
+    void run(QString text);
 };
 
 

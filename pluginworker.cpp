@@ -1,6 +1,6 @@
 #include "pluginworker.h"
 #include "mainwindow.h"
-#include "thirdparty/easylogging++.h"
+#include "easylogging++.h"
 #include <algorithm>
 #include <iostream>
 //#include <range/v3/all.hpp>
@@ -37,7 +37,7 @@ void copy(InputIterator it_begin, InputIterator it_end,std::vector<T>& output_ve
   }
 }
 
-void PluginWorker::sort( std::vector<Proposal> &proposals, QString searchString ){
+std::vector<Proposal> PluginWorker::sort( std::vector<Proposal> proposals, QString searchString ){
 
   auto regex = createRegex(searchString);
   auto bound = std::partition(proposals.begin(), proposals.end(), [&regex](Proposal item) {
@@ -51,50 +51,49 @@ void PluginWorker::sort( std::vector<Proposal> &proposals, QString searchString 
   std::sort(priority_bound, bound,
             [](Proposal a, Proposal b) { return (a.name.length() < b.name.length()); });
   std::sort(bound, proposals.end(), [](Proposal a, Proposal b) { return a.priority < b.priority; });
+  return proposals;
 }
 
-std::vector<Proposal> PluginWorker::query(QString txt,
-                            const std::vector<Proposal>& all_results,
-                            const std::vector<Proposal>& previous_results,
-                            QString previous_search = "")
+void concat(std::vector<Proposal>& vec1, std::vector<Proposal> vec2){
+
+  vec1.reserve(vec1.size() + vec2.size());
+  vec1.insert(vec1.end(),vec2.begin(),vec2.end());
+} 
+std::vector<Proposal> PluginWorker::query(QString txt)
 {
 
-  const std::vector<Proposal>* data = &all_results;
-  if (txt.indexOf(previous_search) != -1 && !previous_search.isEmpty()) {
-    data = &previous_results;
-    }
+  std::vector<Proposal> data ;
+  for(auto plugin: plugins){
+    concat(data,plugin->query(txt));
+  }
+  // if (txt.indexOf(previous_search) != -1 && !previous_search.isEmpty()) {
+  //   data = &previous_results;
+  //   }
 
-    std::vector<Proposal> results;
+  //   std::vector<Proposal> results;
 
-    auto regex = createRegex(txt);
+  //   auto regex = createRegex(txt);
 
-    auto it = std::find_if(data->begin(), data->end(), [&regex](Proposal item) {
-        return regex.exactMatch(QString::fromStdString(item.comment + item.name + item.icon + item.exec));
-    });
+  //   auto it = std::find_if(data->begin(), data->end(), [&regex](Proposal item) {
+  //       return regex.exactMatch(QString::fromStdString(item.comment + item.name + item.icon + item.exec));
+  //   });
 
-    results.resize(std::distance(it,data->end()));
-    std::copy(it,data->end(), results.begin());
+    // results.resize(std::distance(it,data->end()));
+    // std::copy(it,data->end(), results.begin());
 
-    sort(results,txt);
+    // results = sort(std::move(results),txt);
 
 
     LOG(DEBUG) << "Querying";
 
-    return results;
+    return data;
 }
-void PluginWorker::run(QString text, std::vector<Proposal> previous_results, QString previous_search)
+void PluginWorker::run(QString text)
 {
     LOG(INFO) << "PluginWorker::run";
 
     //    std::vector<Proposal> all_results{ 300 };
-    auto applications = plugins[0]->get_proposals();
 
-    auto qutebrowser = plugins[1]->get_proposals();
-
-    //    results.reserve(applications.size() + qutebrowser.size());
-    auto all_results = applications;
-
-    all_results.insert(all_results.end(), qutebrowser.begin(), qutebrowser.end());
 
 
     //    if(all_results.size() > 100)
@@ -104,5 +103,5 @@ void PluginWorker::run(QString text, std::vector<Proposal> previous_results, QSt
     //    }
 
     LOG(INFO) << "EMITTING REFRESH SIGNAL";
-    emit refresh(query(text, all_results, previous_results, previous_search));
+    emit refresh(query(text));
 }

@@ -1,5 +1,4 @@
 #include "singleapplication.h"
-#include "thirdparty/easylogging++.h"
 #include <QFile>
 #include <QMessageBox>
 #include <QTimer>
@@ -56,8 +55,8 @@ void QSingleApplication::startApplication(QLocalSocket::LocalSocketError)
     else
     {
 
-        _exit = true;
-        QMessageBox::critical(0, "Error", "Error listening to socket");
+        _exit = false;
+        // QMessageBox::critical(0, "Error", "Error listening to socket");
 
         LOG(DEBUG) << "Error listening to socket.";
         QFile socket("/tmp/" + applicationName());

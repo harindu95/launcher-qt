@@ -1,5 +1,5 @@
 #include "qutebrowser.h"
-#include "../thirdparty/easylogging++.h"
+// #include "../thirdparty/easylogging++.h"
 #include <QDir>
 
 qutebrowser::qutebrowser() {}
@@ -60,18 +60,12 @@ std::vector<Proposal> qutebrowser::query(QString txt) {
 
     txt = txt.toLower();
     auto terms = txt.split(" ");
-    std::string pattern = ".*";
-    for (auto term : terms) {
-        pattern += join("[^\\s]*", term);
-        pattern += ".*\\s?";
-    }
     std::vector<Proposal> data;
     if (txt.indexOf(previous_search) != -1 && !previous_search.isEmpty())
         data = previous_results;
     else
         data = history;
-    pattern += ".*";
-    QRegExp regex{QString::fromStdString(pattern), Qt::CaseInsensitive};
+    auto regex = createRegex(txt);
     int i = 0;
     for (auto item : data) {
         if (regex.exactMatch(QString::fromStdString(item.comment + item.name))) {

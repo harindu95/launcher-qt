@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+
 #include "Plugins/applications.h"
 #include "pluginworker.h"
 #include "resultwidget.h"
@@ -39,6 +40,7 @@ public:
     void updateUi();
     void scroll();
 
+    void showApp();
 
     ~MainWindow();
 
@@ -79,6 +81,6 @@ public slots:
 
 signals:
 
-    void startWorker(QString txt, std::vector<Proposal> previous_results, QString previous_search);
+    void startWorker(QString txt);
 };
 #endif // MAINWINDOW_H

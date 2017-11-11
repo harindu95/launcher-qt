@@ -10,11 +10,11 @@
 
 
 struct Proposal{
-    std::string name;
-    std::string comment;
-    std::string icon;
-    std::string type;
-    std::string exec;
+    std::string name = "";
+    std::string comment = "";
+    std::string icon = "";
+    std::string type = "";
+    std::string exec = "";
     int priority = 0;
 
 };

@@ -6,15 +6,30 @@ std::vector<Proposal> Plugin::query(QString txt)
 }
 void Plugin::execute(Proposal item) { return; }
 
-Plugin::~Plugin() {}
 void Plugin::setup() {}
 
-std::string join(std::string text1, QString txt)
-{
-    std::string result;
-    for(auto c : txt)
+QString Plugin::join(QString text1, QString text2) {
+
+  QString output;
+  for (auto c : text2) {
+    output += c;
+    output += text1;
+  }
+  return output;
+}
+
+std::vector<Proposal> Plugin::get_proposals(){
+  return {};
+}
+QRegExp Plugin::createRegex( QString searchString, bool strict){
+  searchString = searchString.toLower();
+  auto terms = searchString.split(" ");
+  QString pattern = ".*";
+  for(auto term : terms)
     {
-        result += text1 + QRegExp::escape(c).toStdString();
+      pattern += Plugin::join("[^\\s]*", term);
+      pattern += ".*\\s?";
     }
-    return result;
+  pattern += ".*";
+  return QRegExp{ pattern, Qt::CaseInsensitive };
 }
