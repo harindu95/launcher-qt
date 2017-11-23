@@ -1,7 +1,7 @@
 .idea/
 cmake-build-*
 build
-thirdparty
+lib
 TAGS
 /GPATH
 /GTAGS
