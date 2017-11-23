@@ -2,7 +2,9 @@
 // #include "../thirdparty/easylogging++.h"
 #include <QDir>
 
-qutebrowser::qutebrowser() {}
+qutebrowser::qutebrowser() {
+  setup();
+}
 
 
 Proposal qutebrowser::parseLine(std::string line) {
@@ -76,7 +78,7 @@ std::vector<Proposal> qutebrowser::query(QString txt) {
                 break;
         }
     }
-    LOG(DEBUG) << "Querying inside qutebrowser-plugin";
+    // LOG(DEBUG) << "Querying inside qutebrowser-plugin";
     return results;
 }
 

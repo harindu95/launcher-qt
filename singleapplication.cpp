@@ -10,8 +10,8 @@ QSingleApplication::QSingleApplication(int& argc, char* argv[])
     {
         args.push_back(std::string(argv[i]));
     }
-    m_server = new QLocalServer();
-    m_socket = new QLocalSocket();
+    m_server = new QLocalServer(this);
+    m_socket = new QLocalSocket(this);
 }
 
 void QSingleApplication::singleStart()
@@ -55,7 +55,7 @@ void QSingleApplication::startApplication(QLocalSocket::LocalSocketError)
     else
     {
 
-        _exit = false;
+      _exit = false;
         // QMessageBox::critical(0, "Error", "Error listening to socket");
 
         LOG(DEBUG) << "Error listening to socket.";

@@ -1,27 +1,12 @@
 #include "applications.h"
+#include "../util.h"
 #include <QDir>
 #include <QProcess>
 #include <thread>
 
 typedef std::string String;
 
-std::string filter(QString h) {
-
-  QString result;
-
-  for (int i = 0; i < h.size(); ++i) {
-    QChar qc = h.at(i);
-    unsigned char c = *(unsigned char *)(&qc);
-    if (c >= 127) {
-      result.append("?");
-    } else if (QChar(c).isPrint()) {
-      result.append(QChar(c));
-    }
-  }
-
-  return result.toStdString();
-}
-Proposal parseFile(QString filename) {
+Proposal Applications::parseFile(QString filename) {
 
   QFile input(filename);
   input.open(QIODevice::ReadOnly);
@@ -74,10 +59,6 @@ Proposal parseFile(QString filename) {
   return desktopFile;
 }
 
-bool is_file_exist(const std::string fileName) {
-  std::ifstream infile(fileName);
-  return infile.good();
-}
 
 std::vector<Proposal> Applications::getTerminalCommands() {
   std::vector<Proposal> commands;
@@ -112,6 +93,8 @@ std::vector<Proposal> Applications::getTerminalCommands() {
   pclose(in);
   return commands;
 }
+
+Applications::Applications() { setup(); }
 
 std::vector<Proposal> Applications::extractData() {
 
@@ -164,7 +147,7 @@ std::vector<Proposal> Applications::query(QString txt) {
       }
     }
   }
-  LOG(DEBUG) << "Querying inside applications-plugin";
+  // LOG(DEBUG) << "Querying inside applications-plugin";
   results.insert(results.begin(), firsts.begin(), firsts.end());
   previous_results = results;
   previous_search = txt;

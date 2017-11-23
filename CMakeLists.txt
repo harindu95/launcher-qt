@@ -23,6 +23,8 @@ set(SOURCE_FILES
   singleapplication.h
   singleapplication.cpp
   proposal.h
+  util.h
+  util.cpp
   )
 
 add_subdirectory(Plugins)
