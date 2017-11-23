@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-
+#include "Plugins/applications.h"
 #include "Plugins/qutebrowser.h"
 #include "easylogging++.h"
 #include <QApplication>
@@ -15,9 +15,6 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
   plugins.push_back(std::make_shared<Applications>());
   plugins.push_back(std::make_shared<qutebrowser>());
 
-  for (auto &plugin : plugins) {
-    plugin->setup();
-  }
   initUi();
   thread->start();
   task.moveToThread(thread);
@@ -44,46 +41,30 @@ void MainWindow::focusOut() {
   this->hide();
 }
 
-void MainWindow::textEditFinished() {
-  visibleStart = 0;
-  emit startWorker(searchString);
-}
 
 void MainWindow::textChangedSlot(QString txt) {
-  // LOG(DEBUG) << "text changed " << txt.toStdString();
-  selected = 0;
   searchString = txt;
-  textEditFinished();
+  visibleStart = 0;
+  selected = 0;
+  emit startWorker(txt);
 }
 
-void MainWindow::goDown(int select, int num = 1) {
-  select += num;
-  this->selected = std::min<int>(results.size() - 1, select);
+void MainWindow::goDown() {
+  this->selected = std::min<int>(results.size() - 1, selected+1);
   if (selected > (visibleStart + 4)) {
     visibleStart++;
   }
-  scroll();
+  updateUi();
 }
-void MainWindow::goUp(int select, int num = 1) {
-  select -= num;
-  this->selected = std::max<int>(0, select);
+void MainWindow::goUp() {
+  this->selected = std::max<int>(0, selected + 1);
   if (selected <= visibleStart) {
     visibleStart = std::max<int>(0, --visibleStart);
   }
-  scroll();
+  updateUi();
 }
 void MainWindow::closeEvent(QCloseEvent *evnt) { thread->exit(0); }
 
-void MainWindow::setSelected() {
-  unsigned int i = visibleStart;
-  for (auto item : items) {
-    if (results.size() > i) {
-      item->selectItem(selected == i);
-    }
-
-    i++;
-  }
-}
 
 void runTerminalCmd(std::string cmd) {
 
@@ -98,22 +79,22 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     hide();
   //#Up key
   else if (event->key() == 0x01000013) {
-    goUp(selected, 1);
+    goUp();
     //
   }
   //#Down key
   else if (event->key() == 0x01000015) {
-    goDown(selected, 1);
+    goDown();
     // self
     //                                                     .goDown()
   } else if (event->key() == Qt::Key_PageDown) {
     for (int i = 0; i < 5; i++)
-      goDown(selected, 1);
+      goDown();
     // self
     //                                                     .goDown()
   } else if (event->key() == Qt::Key_PageUp) {
     for (int i = 0; i < 5; i++)
-      goUp(selected, 1);
+      goUp();
     // self
     //                                                     .goDown()
   }
@@ -178,23 +159,8 @@ void MainWindow::updateProposals(const std::vector<Proposal> &results) {
   this->results = results;
   updateUi();
 }
-void MainWindow::scroll() {
 
-  int i = visibleStart;
-
-  for (auto item : items) {
-    if (results.size() > i) {
-      item->changeItem(results.at(i), selected == i);
-      //            item->show();
-    }
-
-    i++;
-  }
-}
 void MainWindow::updateUi() {
-  // LOG(DEBUG) << "UPDATE UI: " << results.size() << " " <<
-  // searchString.toStdString();
-
   int i = 0;
 
   for (auto item : items) {
@@ -208,14 +174,7 @@ void MainWindow::updateUi() {
     i++;
   }
 
-  previous_search = searchString;
-
   QMetaObject::invokeMethod(this, "adjustSize", Qt::QueuedConnection);
-  layout->geometry().height();
-  // layout->setSpacing(1);
-  // layout->setContentsMargins(0, 0, 0, 0);
-  // resize()
-  // adjustSize();
 }
 
 void MainWindow::message(std::string msg) { this->show(); }

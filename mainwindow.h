@@ -1,6 +1,5 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "Plugins/applications.h"
 #include "pluginworker.h"
 #include "resultwidget.h"
 #include <QLineEdit>
@@ -25,14 +24,11 @@ public:
 
     void connect_task();
 
-    void goDown(int selected, int num);
+    void goDown();
 
-    void goUp(int selected, int num);
-
-    void setSelected();
+    void goUp();
 
     void updateUi();
-    void scroll();
 
     void showApp();
 
@@ -49,32 +45,24 @@ private:
 
     QString searchString;
     QVBoxLayout* layout;
-    QWidget* centralWidget;
     QLineEdit* searchBox;
     QThread* thread;
-    QTimer* timer;
     PluginWorker task;
 
     // STATE
     int selected = 0;
     int visibleStart = 0;
     std::vector<Proposal> results;
-    QString previous_search;
 
 public slots:
 
     void focusOut();
-
-    void textEditFinished();
-
     void textChangedSlot(QString txt);
-
     void message(std::string msg);
     void updateProposals(const std::vector<Proposal>& results);
 
 
 signals:
-
     void startWorker(QString txt);
 };
 #endif // MAINWINDOW_H
