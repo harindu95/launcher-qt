@@ -1,7 +1,5 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
-
 #include "Plugins/applications.h"
 #include "pluginworker.h"
 #include "resultwidget.h"
@@ -12,11 +10,7 @@
 #include <QWidget>
 #include <vector>
 
-namespace Ui
-{
-class MainWindow;
-}
-class MainWindow : public QMainWindow
+class MainWindow : public QWidget
 {
     Q_OBJECT
 
