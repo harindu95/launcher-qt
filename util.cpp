@@ -17,6 +17,7 @@ std::string ascii_filter(QString h) {
 
   return result.toStdString();
 }
+
 bool is_file_exist(const std::string fileName) {
   std::ifstream infile(fileName);
   return infile.good();
